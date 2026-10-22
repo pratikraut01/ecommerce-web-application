@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${title} + ' | ShopEasy'">ShopEasy</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+<header th:fragment="header" class="topbar">
+  <a class="brand" th:href="@{/}">🛍 ShopEasy</a>
+  <nav>
+    <a th:href="@{/}">Products</a>
+    <th:block th:if="${session.uid == null}">
+      <a th:href="@{/login}">Login</a>
+      <a th:href="@{/register}">Register</a>
+    </th:block>
+    <th:block th:if="${session.uid != null}">
+      <a th:href="@{/cart}">Cart <span class="pill" th:text="${cartCount}">0</span></a>
+      <a th:href="@{/orders}">My Orders</a>
+      <a th:if="${session.role == 'ADMIN'}" th:href="@{/admin}">Admin</a>
+      <a th:href="@{/logout}">Logout (<span th:text="${session.uname}"></span>)</a>
+    </th:block>
+  </nav>
+</header>
+<div th:fragment="flash">
+  <div class="alert success" th:if="${success}" th:text="${success}"></div>
+  <div class="alert error" th:if="${error}" th:text="${error}"></div>
+</div>
+</body>
+</html>

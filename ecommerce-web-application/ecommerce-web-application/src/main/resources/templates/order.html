@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Order')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container">
+  <div th:replace="~{fragments :: flash}"></div>
+  <h2>Order <span th:text="'#' + ${order.id}">#1</span> <span class="tag" th:text="${order.status}">PLACED</span></h2>
+  <div class="card pad">
+    <p><strong>Placed:</strong> <span th:text="${#temporals.format(order.createdAt, 'dd MMM yyyy HH:mm')}"></span></p>
+    <p><strong>Ship to:</strong> <span th:text="${order.shippingAddress}"></span></p>
+    <p th:if="${order.payment != null}"><strong>Payment:</strong>
+      <span th:text="${order.payment.method} + ' — ' + ${order.payment.status} + ' (Ref ' + ${order.payment.transactionRef} + ')'"></span></p>
+  </div>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>Product</th><th>Unit price</th><th>Qty</th><th>Subtotal</th></tr></thead>
+      <tbody>
+        <tr th:each="i : ${order.items}">
+          <td th:text="${i.product.name}">Name</td><td th:text="'$' + ${i.unitPrice}">$0</td>
+          <td th:text="${i.quantity}">1</td><td th:text="'$' + ${i.subtotal}">$0</td>
+        </tr>
+      </tbody>
+      <tfoot><tr><td colspan="3" class="right"><strong>Total</strong></td><td><strong th:text="'$' + ${order.totalAmount}">$0</strong></td></tr></tfoot>
+    </table>
+  </div>
+</main>
+</body>
+</html>

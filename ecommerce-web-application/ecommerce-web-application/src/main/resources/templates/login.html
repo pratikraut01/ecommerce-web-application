@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Login')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+  <form class="card form" method="post" th:action="@{/login}">
+    <h2>Login</h2>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+    <label>Email<input type="email" name="email" required autofocus></label>
+    <label>Password<input type="password" name="password" required></label>
+    <button class="btn full">Login</button>
+    <p class="small muted center">Demo: admin@shop.com / admin123 &nbsp;|&nbsp; user@shop.com / user123</p>
+    <p class="small center">New here? <a th:href="@{/register}">Create an account</a></p>
+  </form>
+</main>
+</body>
+</html>

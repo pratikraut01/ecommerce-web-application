@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Checkout')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+  <div th:replace="~{fragments :: flash}"></div>
+  <form class="card form" method="post" th:action="@{/checkout}">
+    <h2>Checkout</h2>
+    <ul class="summary">
+      <li th:each="i : ${items}"><span th:text="${i.product.name} + ' × ' + ${i.quantity}">Item</span><span th:text="'$' + ${i.subtotal}">$0</span></li>
+      <li class="total"><span>Total</span><span th:text="'$' + ${total}">$0</span></li>
+    </ul>
+    <label>Shipping address<textarea name="address" rows="3" required></textarea></label>
+    <label>Payment method
+      <select name="method">
+        <option value="COD">Cash on delivery</option>
+        <option value="CARD">Credit / Debit card (simulated)</option>
+        <option value="UPI">UPI (simulated)</option>
+      </select>
+    </label>
+    <button class="btn full">Place order</button>
+  </form>
+</main>
+</body>
+</html>
